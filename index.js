@@ -23,12 +23,9 @@ class Sprite {
         if ( this.position.x < 974){
             this.position.x += 1
         }
-        
-        
-
     }
-}
-
+}        
+        
 const player = new Sprite({
     position: {
         x: 0,
@@ -41,9 +38,6 @@ const player = new Sprite({
 
 })
 
-
-
-
 const enemy = new Sprite({
     position: {
         x: 974,
@@ -55,7 +49,6 @@ const enemy = new Sprite({
     }
 
 })
-
 
 
 function animate() {
@@ -72,5 +65,12 @@ function animate() {
 }
 
 window.requestAnimationFrame(animate)
-// dsadsa
+
+
+
+
+
+
+
+
 
