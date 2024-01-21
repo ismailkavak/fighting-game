@@ -4,7 +4,7 @@ const c = canvas.getContext('2d')
 
 canvas.width = 1024
 canvas.height = 576
-
+const margin = 15
 // c.fillRect(0, 0, canvas.width, canvas.height);
 
 const gravity = 0.7
@@ -13,12 +13,13 @@ class Sprite {
         this.position = position
         this.velocity = velocity
         this.height = 150
+        this.width = 50
         this.jumpTime = 2
     }
 
     draw() {
         c.fillStyle = "red"
-        c.fillRect(this.position.x, this.position.y, 50, this.height)
+        c.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
 
     update() {
@@ -36,12 +37,15 @@ class Sprite {
             this.velocity.y += gravity
         }
 
-        if(this.position.x <= 15){
+        if(this.position.x <= margin){
             this.velocity.x = 0
-            this.position.x = 15
+            this.position.x = margin
+        }
+        if (this.position.x >= canvas.width - this.width - margin ){
+            this.velocity.x = 0
+            this.position.x  = canvas.width - this.width - margin
         }
 
-        
 
 
     }
