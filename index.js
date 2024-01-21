@@ -24,27 +24,48 @@ class Sprite {
 
     update() {
 
-        this.position.x += this.velocity.x
 
-        this.position.y += this.velocity.y
-        if (this.position.y + this.height >= canvas.height) {
-            this.velocity.y = 0
-            this.position.y = canvas.height - this.height
-            this.jumpTime = 2
-            // console.log("Reset : ", this.jumpTime)
+
+        if (this.position.y + this.height > canvas.height) {
             
+            this.position.y = canvas.height - this.height  
+            this.jumpTime = 2
+            this.velocity.y = 0
+            
+
         } else {
             this.velocity.y += gravity
         }
 
-        if(this.position.x <= margin){
-            this.velocity.x = 0
+        if (this.position.x <= margin) {
+            
             this.position.x = margin
         }
-        if (this.position.x >= canvas.width - this.width - margin ){
-            this.velocity.x = 0
-            this.position.x  = canvas.width - this.width - margin
+        if (this.position.x >= canvas.width - this.width - margin) {
+            
+            this.position.x = canvas.width - this.width - margin
         }
+
+        if (player.position.x + this.width + margin > enemy.position.x) {
+            this.velocity.x = 0
+            if (player.velocity.x > 0 && enemy.velocity.x == 0 ){
+                player.position.x = this.width + margin + enemy.position.x
+            }else if(enemy.velocity.x < 0 && player.velocity.x == 0){
+                enemy.position.x = player.position.x + this.width + margin
+            }else if (player.velocity.x > 0 && enemy.velocity.x < 0){
+                player.position.x -= (enemy.position.x - player.position.x - this.width)/2
+                enemy.position.x += (enemy.position.x - player.position.x - this.width)/2
+            }
+            
+            
+            console.log(player.position.x + this.width + margin)
+            console.log(enemy.position.x)
+
+        }
+
+
+        this.position.x += this.velocity.x
+        this.position.y += this.velocity.y
 
 
 
@@ -150,11 +171,11 @@ window.addEventListener("keydown", function (event) {
             } else {
                 keys.w.pressed = true
                 player.jumpTime--
-                if( player.jumpTime <= 0 ){
+                if (player.jumpTime <= 0) {
                     keys.w.pressed = false
                 }
             }
-            break                
+            break
 
         case 'a':
             keys.a.pressed = true
@@ -170,7 +191,7 @@ window.addEventListener("keydown", function (event) {
             } else {
                 keys.ArrowUp.pressed = true
                 enemy.jumpTime--
-                if(enemy.jumpTime <= 0){
+                if (enemy.jumpTime <= 0) {
                     keys.ArrowUp.pressed = false
                 }
             }
