@@ -7,7 +7,7 @@ canvas.height = 576
 
 // c.fillRect(0, 0, canvas.width, canvas.height);
 
-const gravity = 0.2
+const gravity = 0.7
 class Sprite {
     constructor({ position, velocity }) {
         this.position = position
@@ -30,11 +30,18 @@ class Sprite {
             this.velocity.y = 0
             this.position.y = canvas.height - this.height
             this.jumpTime = 2
-            console.log("Reset : ", this.jumpTime)
+            // console.log("Reset : ", this.jumpTime)
             
         } else {
             this.velocity.y += gravity
         }
+
+        if(this.position.x <= 15){
+            this.velocity.x = 0
+            this.position.x = 15
+        }
+
+        
 
 
     }
@@ -100,26 +107,26 @@ function animate() {
     enemy.update()
 
     if (keys.a.pressed) {
-        player.velocity.x = -1
+        player.velocity.x = -4
     } else if (keys.d.pressed) {
-        player.velocity.x = 1
+        player.velocity.x = 4
 
     } else {
         player.velocity.x = 0
     }
     if (keys.w.pressed) {
-        player.velocity.y = -7
+        player.velocity.y = -10
 
     }
     if (keys.ArrowLeft.pressed) {
-        enemy.velocity.x = -1
+        enemy.velocity.x = -4
     } else if (keys.ArrowRight.pressed) {
-        enemy.velocity.x = 1
+        enemy.velocity.x = 4
     } else {
         enemy.velocity.x = 0
     }
     if (keys.ArrowUp.pressed) {
-        enemy.velocity.y = -7
+        enemy.velocity.y = -10
     }
 
     window.requestAnimationFrame(animate)
