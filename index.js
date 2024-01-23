@@ -26,11 +26,29 @@ class Sprite {
         if (keys.e.pressed) {
             c.fillStyle = "blue"
             c.fillRect(player.position.x, player.position.y, this.attackBoxWidth, this.attackBoxHeight)
+
+            if (player.position.x + player.attackBoxWidth >= enemy.position.x) {
+                this.health -= 10
+                console.log("It worked!")
+                console.log(this.health)
+            }
+
         }
 
         if (keys.i.pressed) {
             c.fillStyle = "blue"
             c.fillRect(enemy.position.x - (this.attackBoxWidth - this.width), enemy.position.y, this.attackBoxWidth, this.attackBoxHeight)
+            // console.log(enemy.position.x + margin + enemy.width)
+            // console.log((enemy.position.x - (this.attackBoxWidth - this.width)) - enemy.attackBoxWidth)
+            // console.log((enemy.position.x - (this.attackBoxWidth - this.width)) - enemy.attackBoxWidth + this.width)
+            // console.log(player.position.x + player.width)
+
+            if ((enemy.position.x - (this.attackBoxWidth - this.width)) - enemy.attackBoxWidth + this.width <= player.position.x + player.width) {
+                this.health -= 10
+                console.log("It worked!")
+                console.log(this.health)
+            }
+
         }
     }
 
@@ -69,9 +87,11 @@ class Sprite {
             // }
 
         }
-        
+
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
+
+
     }
 }
 
@@ -192,7 +212,12 @@ window.addEventListener("keydown", function (event) {
             break
 
         case 'e':
-            keys.e.pressed = true
+            if (event.repeat) {
+                keys.e.pressed = false
+            } else {
+                keys.e.pressed = true
+            }
+
             break
 
         case 'ArrowUp':
@@ -213,7 +238,12 @@ window.addEventListener("keydown", function (event) {
             keys.ArrowLeft.pressed = true
             break
         case 'i':
-            keys.i.pressed = true
+            if (event.repeat) {
+                keys.i.pressed = false
+            } else {
+                keys.i.pressed = true
+            }
+
             break
     }
 })
