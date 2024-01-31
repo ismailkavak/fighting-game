@@ -17,34 +17,50 @@ class Sprite {
         this.jumpTime = 2
         this.attackBoxHeight = 50
         this.attackBoxWidth = 90
+        // Not used yet!
         this.health = 100
+        this.healthBarWidth = 420
+        this.healthBarHeight = 30
+        this.healthBarStart = 50 
+        this.timerBar = 80
     }
 
     draw() {
+        // Player health bar
+        c.fillStyle = "blue"
+        c.fillRect(this.healthBarStart, this.healthBarStart, this.healthBarWidth, this.healthBarHeight)
+
+        // Timer
+        c.fillStyle = "red"
+        c.fillRect(this.healthBarWidth + this.healthBarStart, this.healthBarHeight, this.timerBar, this.timerBar)
+
+        // Enemy health bar
+        c.fillStyle = "blue"
+        c.fillRect(this.healthBarWidth + this.healthBarStart + this.timerBar, this.healthBarStart, this.healthBarWidth, this.healthBarHeight)
+
+        
         c.fillStyle = "red"
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
         if (keys.e.pressed) {
+
+            
             c.fillStyle = "blue"
             c.fillRect(player.position.x, player.position.y, this.attackBoxWidth, this.attackBoxHeight)
-
+            // detect for collision(player)
             if (player.position.x + player.attackBoxWidth >= enemy.position.x) {
-                this.health -= 10
+                this.health -= 0.5
                 console.log("It worked!")
                 console.log(this.health)
             }
-
         }
 
         if (keys.i.pressed) {
             c.fillStyle = "blue"
             c.fillRect(enemy.position.x - (this.attackBoxWidth - this.width), enemy.position.y, this.attackBoxWidth, this.attackBoxHeight)
-            // console.log(enemy.position.x + margin + enemy.width)
-            // console.log((enemy.position.x - (this.attackBoxWidth - this.width)) - enemy.attackBoxWidth)
-            // console.log((enemy.position.x - (this.attackBoxWidth - this.width)) - enemy.attackBoxWidth + this.width)
-            // console.log(player.position.x + player.width)
 
+            // detect for collision(enemy)
             if ((enemy.position.x - (this.attackBoxWidth - this.width)) - enemy.attackBoxWidth + this.width <= player.position.x + player.width) {
-                this.health -= 10
+                this.health -= 0.5
                 console.log("It worked!")
                 console.log(this.health)
             }
